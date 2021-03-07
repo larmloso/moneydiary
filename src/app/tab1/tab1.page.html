@@ -1,7 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +8,60 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="medium">Money Diary</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-list *ngFor="let item of tmpobj">
+    <!-- Multi-line sliding item with icon options on both sides -->
+    <ion-item-sliding id="item100">
+      <ion-item href="#">
+
+        <ion-icon *ngIf="item.income" slot="start" color="success" name="cash-outline"></ion-icon>
+        <ion-icon *ngIf="!item.income" slot="start" color="danger" name="cash-outline"></ion-icon>
+
+        <ion-label>
+          <h2>{{item.title}}</h2>
+          <p>{{item.date}}</p>
+        </ion-label>
+        <ion-note *ngIf="item.income" slot="end" color="success" > + {{item.count}} </ion-note>
+        <ion-note *ngIf="!item.income" slot="end" color="danger" > - {{item.count}} </ion-note>
+      </ion-item>
+
+      <!-- <ion-item-options side="start">
+        <ion-item-option>
+          <ion-icon slot="icon-only" name="heart"></ion-icon>
+        </ion-item-option>
+      </ion-item-options> -->
+
+      <ion-item-options side="end">
+        <ion-item-option color="warning" (click)="presentPrompt(item)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="presentConfirm(item)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+  </ion-list>
+
+
+  <!-- fab placed in the center of the content with a list on each side -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="book-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="success">
+        <ion-icon name="add-outline" (click)="presentIncome(true)"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="start">
+      <ion-fab-button color="danger">
+        <ion-icon name="remove-outline" (click)="presentIncome(false)"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

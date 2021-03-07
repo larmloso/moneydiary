@@ -1,17 +1,87 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Dashboard
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="ion-padding">
+    <!-- <ion-card>
+      <ion-card-header>
+        Bar Chart
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #barCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card> -->
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+    <ion-card>
+      <ion-card-header>
+        <ion-list>
+          <ion-item>
+            <ion-label>ข้อมูลประเภท</ion-label>
+            <!-- <ion-select [value]="['วัน']">
+              <ion-select-option *ngFor="let item of dateTime">{{item.name}}</ion-select-option>
+            </ion-select> -->
+
+            <ion-select [selectedText]="optselected" [ngModel]="dateTime" (ngModelChange)="companyFormSelected($event)">
+              <ion-select-option *ngFor="let item of dateTime" [value]="item.type" sele>{{item.name}}</ion-select-option>
+            </ion-select>
+
+          </ion-item>
+
+        </ion-list>
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #doughnutCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        รายละเอียด
+      </ion-card-header>
+      <ion-card-content>
+
+        <ion-item>
+          <ion-label>
+            <h2>รายรับรวม</h2>
+          </ion-label>
+          <ion-note slot="end" color="success"> + {{this.userService.income}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>รายจ่ายรวม</h2>
+          </ion-label>
+          <ion-note slot="end" color="danger"> - {{this.userService.expenditure}}</ion-note>
+        </ion-item>
+
+      </ion-card-content>
+      <ion-card-content>
+        ยอดคงเหลือทั้งหมด
+        <ion-item>
+          <ion-note slot="end"*ngIf="((this.userService.income - this.userService.expenditure) > 0)" color="success">
+             + {{this.userService.income - this.userService.expenditure}}</ion-note>
+          <ion-note slot="end"*ngIf="((this.userService.income - this.userService.expenditure) < 0)" color="danger">
+              {{this.userService.income - this.userService.expenditure}}</ion-note>
+
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+
+
+
+    <!-- <ion-card>
+      <ion-card-header>
+        Line Chart
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #lineCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+    </ion-card> -->
+
+  </div>
 </ion-content>
