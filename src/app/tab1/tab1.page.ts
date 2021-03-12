@@ -16,16 +16,20 @@ export class Tab1Page {
   income: any;
   expenditure: any;
 
+  bythumbnail: any;
+
   constructor(private alertCtrl: AlertController, private userService: UserService,
     private router: Router
-    ) {
+  ) {
 
   }
 
 
   ngOnInit(): void {
     this.userService.readData().subscribe(data => {
-      this.tmpobj = data.map(e => {
+
+
+      this.bythumbnail = data.map(e => {
         return {
           id: e.payload.doc.id,
           count: e.payload.doc.data()['count'.toString()],
@@ -34,10 +38,28 @@ export class Tab1Page {
           date: this.dateTime(e.payload.doc.data()['date'.toString()]),
         }
       });
+      this.bythumbnail.sort(function (b, a) {
+        var x = a.date.toLowerCase();
+        var y = b.date.toLowerCase();
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
+      this.tmpobj = this.bythumbnail;
+
+
+
+      // this.tmpobj = data.map(e => {
+      //   return {
+      //     id: e.payload.doc.id,
+      //     count: e.payload.doc.data()['count'.toString()],
+      //     title: e.payload.doc.data()['title'.toString()],
+      //     income: e.payload.doc.data()['income'.toString()],
+      //     date: this.dateTime(e.payload.doc.data()['date'.toString()]),
+      //   }
+      // });
     })
   }
 
-  sendToEdit(item: any){
+  sendToEdit(item: any) {
     this.router.navigate(['editpage', JSON.stringify(item)]);
   }
 

@@ -45,7 +45,7 @@ export class EditpagePage implements OnInit {
       tmpcountry['title'] = this.title;
       tmpcountry['count'] = this.count;
       tmpcountry['income'] = this.radio;
-      tmpcountry['date'] = new Date().toISOString();
+      ///tmpcountry['date'] = new Date().toISOString();
       this.userService.updateData(this.getData.id, tmpcountry);
     //console.log(tmpcountry);
 
