@@ -35,6 +35,9 @@
       </ion-item-options> -->
 
       <ion-item-options side="end">
+        <ion-item-option color="secondary" (click)="sendToEdit(item)">
+          <ion-icon slot="icon-only" name="ellipsis-horizontal-outline"></ion-icon>
+        </ion-item-option>
         <ion-item-option color="warning" (click)="presentPrompt(item)">
           <ion-icon slot="icon-only" name="create-outline"></ion-icon>
         </ion-item-option>

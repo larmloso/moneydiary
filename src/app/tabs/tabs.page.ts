@@ -13,9 +13,7 @@ export class TabsPage {
 
 
 
-  constructor(public userService: UserService) {
-    console.log("tab")
-  }
+  constructor(public userService: UserService) {}
 
   calculator() {
     this.userService.readData().subscribe(data => {
@@ -24,9 +22,8 @@ export class TabsPage {
       let expenditureObj = [];
       data.map(e => {
         let today = new Date().toISOString();
-        console.log(this.dateTime(today));
-        if ((this.dateTime(today)) != (this.dateTime(e.payload.doc.data()['date']))) {
-          console.log("false");
+        if ((this.factoryDateTime(today)) != (this.factoryDateTime(e.payload.doc.data()['date']))) {
+          console.log("ilove you");
         } else {
           if (e.payload.doc.data()['income']) {
             incomeObj.push(parseFloat(e.payload.doc.data()['count']));
@@ -43,14 +40,28 @@ export class TabsPage {
       this.userService.income = sumIncome;
       this.userService.expenditure = sumExpenditure;
 
-      this.userService.incomeall = (((sumIncome) - (sumExpenditure / sumIncome) * sumIncome));
-      this.userService.expenditureall = ((sumExpenditure / (sumIncome)) * sumIncome);
+      // this.userService.incomeall = (((sumIncome) - (sumExpenditure / sumIncome) * sumIncome));
+      // this.userService.expenditureall = ((sumExpenditure / (sumIncome)) * sumIncome);
+
+      let number1 = (((sumIncome) - (sumExpenditure / sumIncome) * sumIncome));
+      let number2 = ((sumExpenditure / (sumIncome)) * sumIncome);
+
+      if(number1 <= 0) {
+        this.userService.incomeall = 0;
+        this.userService.expenditureall = number2;
+      }
+      else {
+        this.userService.incomeall = number1;
+        this.userService.expenditureall = number2;
+      }
+
+      console.log(number1, number2);
 
     })
 
   }
 
-  dateTime(dateTime: any) {
+  factoryDateTime(dateTime: any) {
 
     let date = new Date(dateTime);
     let year = date.getFullYear();

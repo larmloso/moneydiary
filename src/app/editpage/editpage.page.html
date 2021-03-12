@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>editpage</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>แก้ไขเพิ่มเติม</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="title" value={{getData.title}}></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="count" value={{getData.count}}></ion-input>
+    </ion-item>
+
+    <ion-list>
+      <ion-radio-group value="{{getData.income}}" allow-empty-selection="true">
+        <ion-list-header>
+          <ion-label></ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>รายรับ</ion-label>
+          <ion-radio slot="end" (click)="radioHandler(true)" value={{true}}></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>รายจ่าย</ion-label>
+          <ion-radio slot="end" (click)="radioHandler(false)" value={{false}}></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+
+  </ion-list>
+
+
+
+  <ion-button expand="full" color="light" (click)="Update()">Update</ion-button>
+
+  <ion-button expand="full" color="light" (click)="Back()">BACK</ion-button>
+
+</ion-content>

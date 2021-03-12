@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicRouteStrategy } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { UserService } from '../api/user.service';
+
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -13,7 +16,9 @@ export class Tab1Page {
   income: any;
   expenditure: any;
 
-  constructor(private alertCtrl: AlertController, private userService: UserService) {
+  constructor(private alertCtrl: AlertController, private userService: UserService,
+    private router: Router
+    ) {
 
   }
 
@@ -30,6 +35,10 @@ export class Tab1Page {
         }
       });
     })
+  }
+
+  sendToEdit(item: any){
+    this.router.navigate(['editpage', JSON.stringify(item)]);
   }
 
 
@@ -64,14 +73,16 @@ export class Tab1Page {
         {
           text: 'ADD',
           handler: data => {
-            let tmpobj =  //db : inputform
-            {
-              title: data.title,
-              count: data.count,
-              income: isIncom,
-              date: new Date().toISOString(),
-            };
-            this.userService.createData(tmpobj);
+            if (data.title != '' && data.count != '') {
+              let tmpobj =  //db : inputform
+              {
+                title: data.title,
+                count: data.count,
+                income: isIncom,
+                date: new Date().toISOString(),
+              };
+              this.userService.createData(tmpobj);
+            }
           }//handler
 
         }//update
@@ -156,7 +167,7 @@ export class Tab1Page {
   }
 
 
-  dateTime(dateTime: any){
+  dateTime(dateTime: any) {
 
     let date = new Date(dateTime);
     let year = date.getFullYear();
@@ -165,10 +176,10 @@ export class Tab1Page {
     let hours = date.getHours();
     let minutes = date.getMinutes();
 
-    if(day < 10){ day = 0 + day}
-    if(month < 10){month = 0 + month}
+    if (day < 10) { day = 0 + day }
+    if (month < 10) { month = 0 + month }
 
-    let newdate = day+"-"+month+"-"+year+"  "+hours+":"+minutes;
+    let newdate = day + "-" + month + "-" + year + "  " + hours + ":" + minutes;
     return newdate;
 
   }

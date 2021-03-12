@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'formdiary',
     loadChildren: () => import('./formdiary/formdiary.module').then( m => m.FormdiaryPageModule)
+  },
+  {
+    path: 'editpage/:dataObj',
+    loadChildren: () => import('./editpage/editpage.module').then( m => m.EditpagePageModule)
   }
 ];
 @NgModule({

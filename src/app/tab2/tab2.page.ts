@@ -20,6 +20,9 @@ export class Tab2Page implements AfterViewInit {
   newDatatime: any;
   optselected: any;
 
+  expenditure: any;
+  income: any;
+
   dateTime: any = [
     { id: 1, name: 'วัน' , type: 'today'},
     // { id: 2, name: 'สัปดาห์', type: 'week'},
@@ -36,6 +39,8 @@ export class Tab2Page implements AfterViewInit {
   companyFormSelected(event: any) {
     this.optselected = this.dateTime.type;
     this.calculator(event);
+    console.log(event);
+
   }
 
 
@@ -46,7 +51,8 @@ export class Tab2Page implements AfterViewInit {
 
 
   ionViewWillEnter() {
-    console.log("hello", this.userService.incomeall);
+    console.log("คงเหลือ", this.userService.incomeall);
+    console.log("รายจ่ายรวม", this.userService.expenditureall);
     this.doughnutChartMethod();
   }
 
@@ -130,13 +136,23 @@ export class Tab2Page implements AfterViewInit {
       this.userService.income = sumIncome;
       this.userService.expenditure = sumExpenditure;
 
-      this.userService.incomeall = (((sumIncome) - (sumExpenditure /sumIncome) * sumIncome));
-      this.userService.expenditureall = ((sumExpenditure / (sumIncome)) * sumIncome);
+
+      // this.userService.incomeall = (((sumIncome) - (sumExpenditure /sumIncome) * sumIncome));
+      // this.userService.expenditureall = ((sumExpenditure / (sumIncome)) * sumIncome);
+
+      let number1 = (((sumIncome) - (sumExpenditure /sumIncome) * sumIncome));
+      let number2 = ((sumExpenditure / (sumIncome)) * sumIncome);
+
+      if(number1 <= 0) {
+        this.userService.incomeall = 0;
+        this.userService.expenditureall = number2;
+      }
+      else {
+        this.userService.incomeall = number1;
+        this.userService.expenditureall = number2;
+      }
 
       this.doughnutChartMethod();
-
-      // console.log("รับ ",((num1) - (num2 /num1) * num1));
-      // console.log("จ่าย ",(num2 / (num1)) * num1);
     })
 
   }
